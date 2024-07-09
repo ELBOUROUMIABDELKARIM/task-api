@@ -25,7 +25,7 @@ pipeline {
                 sh 'bundle exec rspec'
             }
         }
-        stage('Build Docker image') {
+        /* stage('Build Docker image') {
             steps {
                 script {
                     docker.build("your-docker-repo/your-app:${env.BUILD_ID}")
@@ -40,6 +40,6 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
     }
 }
