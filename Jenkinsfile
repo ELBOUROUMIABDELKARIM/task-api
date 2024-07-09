@@ -14,15 +14,15 @@ pipeline {
 
         stage('Install Dependencies') {
             steps {
-                sh 'rvm install 3.2.3'
-                sh 'gem install bundler'
-                sh 'bundle install'
+                bat 'rvm install 3.2.3'
+                bat 'gem install bundler'
+                bat 'bundle install'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh 'bundle exec rspec'
+                bat 'bundle exec rspec'
             }
         }
 
