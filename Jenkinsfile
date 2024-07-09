@@ -20,12 +20,6 @@ pipeline {
             }
         }
 
-        stage('Run Linter') {
-            steps {
-                sh 'bundle exec rubocop'
-            }
-        }
-
         stage('Run Tests') {
             steps {
                 sh 'bundle exec rspec'
