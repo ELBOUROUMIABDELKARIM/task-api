@@ -8,40 +8,34 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git 'https://your-repository-url.git'
+                git 'https://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@github.com/ELBOUROUMIABDELKARIM/task-api'
             }
         }
 
         stage('Install Dependencies') {
             steps {
-                // Install Ruby and Bundler
-                sh 'rvm install 2.7.2' // Make sure to use your Ruby version
+                sh 'rvm install 3.2.3'
                 sh 'gem install bundler'
-
-                // Install project dependencies
                 sh 'bundle install'
             }
         }
 
         stage('Run Linter') {
             steps {
-                // Run RuboCop to check for code style violations
                 sh 'bundle exec rubocop'
             }
         }
 
         stage('Run Tests') {
             steps {
-                // Run RSpec tests
                 sh 'bundle exec rspec'
             }
         }
 
         stage('Build Docker Image') {
             steps {
-                // Build the Docker image
                 script {
-                    dockerImage = docker.build("your-docker-repo/your-app-name:${env.BUILD_ID}")
+                    dockerImage = docker.build("abdelkarimelbouroumi/task-ruby-api:${env.BUILD_ID}")
                 }
             }
         }
@@ -49,7 +43,7 @@ pipeline {
         stage('Push Docker Image') {
             steps {
                 script {
-                    docker.withRegistry('https://your-docker-registry', 'docker-credentials-id') {
+                    docker.withRegistry('https://index.docker.io/v1/', '2188e3cf-9082-4c18-9644-81a7b2350f7d') {
                         dockerImage.push()
                     }
                 }
@@ -59,17 +53,14 @@ pipeline {
 
     post {
         always {
-            // Clean up after the build
             cleanWs()
         }
 
         success {
-            // Notify success
             echo 'Build succeeded.'
         }
 
         failure {
-            // Notify failure
             echo 'Build failed.'
         }
     }
