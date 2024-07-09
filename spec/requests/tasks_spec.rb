@@ -52,7 +52,7 @@ RSpec.describe "Tasks", type: :request do
     end
 
 
-    context "when the id not valid" do
+    context "when the id is not valid" do
       before { get "/tasks/00", headers: headers }
 
       it "returns a not found response" do
@@ -118,6 +118,19 @@ RSpec.describe "Tasks", type: :request do
       end
     end
 
+    context "when the id is not valid" do
+      before { put "/tasks/00", params: valid_attributes, headers: headers }
+
+      it "returns a not found response" do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns task not found message" do
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq("Task not found")
+      end
+    end
+
     context "when the request is invalid" do
       before { put "/tasks/#{task.id}", params: { task: { title: "" } }, headers: headers }
 
@@ -135,6 +148,19 @@ RSpec.describe "Tasks", type: :request do
 
       it "deletes the task" do
         expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context "when the id is not valid" do
+      before { delete "/tasks/00", headers: headers }
+
+      it "returns a not found response" do
+        expect(response).to have_http_status(:not_found)
+      end
+
+      it "returns task not found message" do
+        json_response = JSON.parse(response.body)
+        expect(json_response["error"]).to eq("Task not found")
       end
     end
 
