@@ -12,5 +12,8 @@ RUN apt-get update -qq && \
 # Add Jenkins user to the Docker group
 RUN usermod -aG docker jenkins
 
+# Allow Jenkins user to run sudo commands without a password
+RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
 # Switch back to Jenkins user
 USER jenkins

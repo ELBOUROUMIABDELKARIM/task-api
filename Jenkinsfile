@@ -3,12 +3,13 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
+                // Verify Docker installation
                 sh 'docker --version'
             }
         }
         stage('Checkout') {
             steps {
-                git branch: 'master', url: 'https://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@github.com/ELBOUROUMIABDELKARIM/task-api'
+                git branch: 'main', url: 'https://github.com/your-repo.git'
             }
         }
         stage('Install dependencies') {
@@ -24,7 +25,7 @@ pipeline {
                 sh 'bundle exec rspec'
             }
         }
-        /* stage('Build Docker image') {
+        stage('Build Docker image') {
             steps {
                 script {
                     docker.build("your-docker-repo/your-app:${env.BUILD_ID}")
@@ -39,6 +40,6 @@ pipeline {
                     }
                 }
             }
-        } */
+        }
     }
 }
