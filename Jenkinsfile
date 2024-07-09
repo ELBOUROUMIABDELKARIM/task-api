@@ -3,8 +3,10 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                // Verify Docker installation
+                // Verify Docker and Ruby installations
                 sh 'docker --version'
+                sh 'ruby --version'
+                sh 'bundler --version'
             }
         }
         stage('Checkout') {
@@ -15,7 +17,7 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 script {
-                    sh 'sudo apt-get update -qq && sudo apt-get install --no-install-recommends -y build-essential libpq-dev libvips pkg-config'
+                    sh 'sudo apt-get update -qq && sudo apt-get install --no-install-recommends -y libpq-dev libvips pkg-config'
                     sh 'bundle install'
                 }
             }

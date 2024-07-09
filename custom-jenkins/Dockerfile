@@ -4,9 +4,10 @@ FROM jenkins/jenkins:lts
 # Switch to root user to install packages
 USER root
 
-# Install sudo and Docker CLI
+# Install sudo, Docker CLI, Ruby, and Bundler
 RUN apt-get update -qq && \
-    apt-get install -y sudo docker.io && \
+    apt-get install -y sudo docker.io ruby-full build-essential && \
+    gem install bundler && \
     rm -rf /var/lib/apt/lists/*
 
 # Add Jenkins user to the Docker group
