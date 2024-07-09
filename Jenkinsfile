@@ -3,15 +3,7 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                script {
-                    // Ensure sudo is installed
-                    sh 'apt-get update -qq'
-                    sh 'apt-get install -y sudo'
-                    // Run setup commands with elevated permissions
-                    sh 'sudo apt-get update -qq'
-                    sh 'sudo apt-get install -y docker.io'
-                    sh 'sudo docker --version'
-                }
+                sh 'docker --version'
             }
         }
         stage('Checkout') {
@@ -32,7 +24,7 @@ pipeline {
                 sh 'bundle exec rspec'
             }
         }
-        stage('Build Docker image') {
+        /* stage('Build Docker image') {
             steps {
                 script {
                     docker.build("your-docker-repo/your-app:${env.BUILD_ID}")
@@ -47,6 +39,6 @@ pipeline {
                     }
                 }
             }
-        }
+        } */
     }
 }

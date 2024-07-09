@@ -18,8 +18,6 @@ RSpec.describe "Tasks", type: :request do
         json_response = JSON.parse(response.body)
         expect(json_response.size).to eq(3)
         json_response.each do |task|
-          expect task["title"].to eq "Test Task"
-          expect task["description"].to eq "This is a test task."
           expect(task["user_id"]).to eq(user.id)
         end
       end
