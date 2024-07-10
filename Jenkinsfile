@@ -1,49 +1,35 @@
 pipeline {
-    agent any
-    environment {
-        PATH = "/usr/local/rbenv/bin:/usr/local/rbenv/shims:$PATH"
-    }
-    stages {
-        stage('Setup') {
-            steps {
-                // Verify Docker and Ruby installations
-                sh 'docker --version'
-                sh '/bin/bash -c "source /etc/profile.d/rbenv.sh && ruby --version"'
-                sh '/bin/bash -c "source /etc/profile.d/rbenv.sh && bundler --version"'
-            }
+    agent {
+        docker {
+            image 'jenkins-ruby-rbenv'
+            args '-u root:root'
         }
+    }
+
+    environment {
+        DATABASE_URL = "postgres://postgres:postgres@postgres_container:5432/project_development_test"
+    }
+
+    stages {
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://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@github.com/ELBOUROUMIABDELKARIM/task-api'
             }
         }
-        stage('Install dependencies') {
+        stage('Install Dependencies') {
             steps {
-                script {
-                    sh 'sudo apt-get update -qq && sudo apt-get install --no-install-recommends -y libpq-dev libvips pkg-config'
-                    sh '/bin/bash -c "source /etc/profile.d/rbenv.sh && bundle install"'
-                }
+                sh 'bundle install'
             }
         }
-        stage('Run tests') {
+        stage('Lint') {
             steps {
-                sh '/bin/bash -c "source /etc/profile.d/rbenv.sh && bundle exec rspec"'
+                sh 'bundle exec rubocop'
             }
         }
-        stage('Build Docker image') {
+        stage('Test') {
             steps {
-                script {
-                    docker.build("your-docker-repo/your-app:${env.BUILD_ID}")
-                }
-            }
-        }
-        stage('Deploy') {
-            steps {
-                script {
-                    docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        docker.image("your-docker-repo/your-app:${env.BUILD_ID}").push()
-                    }
-                }
+                sh 'bundle exec rake db:create db:schema:load'
+                sh 'bundle exec rspec'
             }
         }
     }
