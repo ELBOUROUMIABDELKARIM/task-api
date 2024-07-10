@@ -328,6 +328,7 @@
       <value>file://$MODULE_DIR$/../web-api-learn\public/stylesheets</value>
     </entry>
     <entry key="test/mailers/previews">
+      <value>file://$MODULE_DIR$/spec/mailers/previews</value>
       <value>file://$MODULE_DIR$/test/mailers/previews</value>
       <value>file://$MODULE_DIR$/../web-api-learn\test/mailers/previews</value>
     </entry>

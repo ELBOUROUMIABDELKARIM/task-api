@@ -11,20 +11,16 @@ RUN apt-get update -qq && \
 
 # Install rbenv and ruby-build
 RUN git clone https://github.com/rbenv/rbenv.git /usr/local/rbenv && \
-    echo 'export PATH="/usr/local/rbenv/bin:$PATH"' >> /etc/profile.d/rbenv.sh && \
-    echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh && \
     mkdir -p /usr/local/rbenv/plugins && \
     git clone https://github.com/rbenv/ruby-build.git /usr/local/rbenv/plugins/ruby-build && \
     /usr/local/rbenv/plugins/ruby-build/install.sh
 
-# Initialize rbenv and install Ruby 3.2.2
-RUN bash -c 'source /etc/profile.d/rbenv.sh && rbenv install 3.2.2 && rbenv global 3.2.2'
+# Set up rbenv environment
+ENV PATH="/usr/local/rbenv/bin:/usr/local/rbenv/shims:$PATH"
+RUN echo 'eval "$(rbenv init -)"' >> /etc/profile.d/rbenv.sh
 
-# Install Bundler
-RUN bash -c 'source /etc/profile.d/rbenv.sh && gem install bundler'
-
-# Add rbenv to PATH for all users
-ENV PATH="/usr/local/rbenv/shims:/usr/local/rbenv/bin:$PATH"
+# Install Ruby 3.2.2 and Bundler
+RUN /bin/bash -c 'source /etc/profile.d/rbenv.sh && rbenv install 3.2.2 && rbenv global 3.2.2 && gem install bundler'
 
 # Add Jenkins user to the Docker group
 RUN usermod -aG docker jenkins
@@ -34,3 +30,7 @@ RUN echo "jenkins ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
 # Switch back to Jenkins user
 USER jenkins
+
+# Make sure rbenv is initialized for the Jenkins user
+ENV PATH="/usr/local/rbenv/bin:/usr/local/rbenv/shims:$PATH"
+RUN echo 'eval "$(rbenv init -)"' >> ~/.bashrc
