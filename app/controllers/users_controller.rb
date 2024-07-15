@@ -4,7 +4,6 @@
 class UsersController < ApplicationController
   before_action :authorize_admin, only: %i[create destroy]
   before_action :set_user, only: %i[show destroy]
-  # skip_before_action :authenticate_user, only: %i[index]
 
   def index
     @users = User.page(params[:page]).per(10)
