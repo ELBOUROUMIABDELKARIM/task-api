@@ -1,4 +1,4 @@
-# This workflow uses actions that are not certified by GitHub.  They are
+# This workflow uses actions that are not certified by GitHub. They are
 # provided by a third-party and are governed by separate terms of service,
 # privacy policy, and support documentation.
 #
@@ -30,15 +30,19 @@ jobs:
         uses: actions/checkout@v4
       # Add or replace dependency steps here
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1.146.0
         with:
           bundler-cache: true
+      - name: Set execute permissions for Rails
+        run: chmod +x bin/rails
       # Add or replace database setup steps here
-      - name: Set up database schema
-        run: bin/rails db:schema:load
+      - name: Set up database
+        run: |
+          bin/rails db:create
+          bin/rails db:migrate
       # Add or replace test runners here
       - name: Run tests
-        run: bin/rake
+        run: bin/rspec
 
   lint:
     runs-on: ubuntu-latest
@@ -46,7 +50,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Install Ruby and gems
-        uses: ruby/setup-ruby@55283cc23133118229fd3f97f9336ee23a179fcf # v1.146.0
+        uses: ruby/setup-ruby@v1.146.0
         with:
           bundler-cache: true
       # Add or replace any other lints here
