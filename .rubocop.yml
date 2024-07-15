@@ -1,0 +1,16 @@
+AllCops:
+  Exclude:
+    - 'config/**/*'
+    - 'test/**/*'
+    - 'spec/**/*'
+    - 'db/**/*'
+    - 'bin/**/*'
+    - 'node_modules/**/*'
+    - 'vendor/**/*'
+    - 'lib/**/*'
+    - 'log/**/*'
+    - 'storage/**/*'
+    - 'swagger/**/*'
+
+  Include:
+    - 'app/**/*'
