@@ -1,4 +1,5 @@
 AllCops:
+  NewCops: disable
   Include:
     - 'app/**/*'
   Exclude:
@@ -8,13 +9,3 @@ AllCops:
     - 'config/**/*'
     - 'lib/**/*'
     - 'vendor/**/*'
-
-
-Layout/EmptyLineAfterMagicComment:
-  Enabled: true
-
-Style/Documentation:
-  Enabled: true
-
-Layout/EmptyLineAfterGuardClause:
-  Enabled: true
