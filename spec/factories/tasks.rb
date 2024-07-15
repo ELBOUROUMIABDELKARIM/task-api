@@ -4,5 +4,6 @@ FactoryBot.define do
     association :user
     title { "Test Task" }
     description { "This is a test task." }
+    completed {true}
   end
 end

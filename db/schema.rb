@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_05_134517) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_12_092707) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "roles", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -21,6 +27,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_134517) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.integer "assigned_user_id"
+    t.datetime "due_date"
+    t.datetime "last_reminder_sent_at"
+    t.index ["assigned_user_id"], name: "index_tasks_on_assigned_user_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -31,6 +41,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_05_134517) do
     t.date "dateOfBirth"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role"
   end
 
   add_foreign_key "tasks", "users"

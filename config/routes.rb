@@ -1,6 +1,14 @@
 Rails.application.routes.draw do
+  mount Rswag::Ui::Engine => '/api-docs'
+  mount Rswag::Api::Engine => '/api-docs'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-  resources :tasks
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+  resources :tasks do
+    member do
+      patch :assign
+    end
+  end
   resources :users
   post '/auth/login', to: 'authentication#login'
   post '/auth/register', to: 'authentication#register'

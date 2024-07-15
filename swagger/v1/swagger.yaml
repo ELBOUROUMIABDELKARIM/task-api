@@ -1,0 +1,5 @@
+openapi: 3.0.3
+info:
+  title: Task Management Api
+  description: This is my learning by doing project, simple tasks management api with authentication
+  version: 1.0.0

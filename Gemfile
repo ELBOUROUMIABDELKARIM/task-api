@@ -42,6 +42,13 @@ gem 'rubocop', require: false
 
 gem 'pry-rails', :group => :development
 
+gem 'kaminari'
+gem 'sidekiq'
+gem 'sidekiq-cron'
+gem 'rswag-api'
+gem 'rswag-ui'
+
+
 gem 'bullet', group: 'development'
 
 gem 'byebug', '~> 10.0.1', require: false
@@ -55,6 +62,11 @@ group :development, :test do
   gem 'debug', platforms: %i[mri windows]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'rswag-specs'
+end
+
+group :test do
+  gem 'database_cleaner-active_record'
 end
 
 

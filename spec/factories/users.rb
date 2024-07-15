@@ -1,15 +1,20 @@
 # spec/factories/users.rb
 FactoryBot.define do
   factory :user do
-    name { "Test User" }
-    email { "test@example.com" }
+    sequence(:name) { |n| "Test User #{n}" }
+    sequence(:email) { |n| "test#{n}@example.com" }
     password { "password" }
-    trait :empty_name do
-      name {""}
+
+    trait :admin do
+      role { "admin" }
     end
-    trait :empty_email do
-      email {""}
+
+    trait :moderator do
+      role { "moderator" }
+    end
+
+    trait :user do
+      role { "user" }
     end
   end
-
 end

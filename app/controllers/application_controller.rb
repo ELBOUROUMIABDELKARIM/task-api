@@ -3,6 +3,7 @@ class ApplicationController < ActionController::API
   before_action :authenticate_user
 
   private
+
   def authenticate_user
     header = request.headers['Authorization']
     header = header.split(' ').last if header
@@ -13,6 +14,12 @@ class ApplicationController < ActionController::API
       render json: { errors: [e.message] }, status: :unauthorized
     rescue JWT::DecodeError => e
       render json: { errors: [e.message] }, status: :unauthorized
+    end
+  end
+
+  def authorize_admin
+    unless @current_user.has_role?('admin')
+      render json: { errors: ['Unauthorized. Admin access required.'] }, status: :unauthorized
     end
   end
 end
