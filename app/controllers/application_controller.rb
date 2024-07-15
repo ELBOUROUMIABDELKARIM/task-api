@@ -1,7 +1,7 @@
 # frozen_string_literal: true
+
 # ApplicationController serves as the base controller for the API
 class ApplicationController < ActionController::API
-
   include JwtToken
   before_action :authenticate_user
 
@@ -25,5 +25,4 @@ class ApplicationController < ActionController::API
 
     render json: { errors: ['Unauthorized. Admin access required.'] }, status: :unauthorized
   end
-
 end

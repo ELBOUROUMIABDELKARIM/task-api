@@ -4,7 +4,7 @@
 class Role < ApplicationRecord
   has_many :users
 
-  ADMIN = 'admin'.freeze
-  MODERATOR = 'moderator'.freeze
-  USER = 'user'.freeze
+  ADMIN = 'admin'
+  MODERATOR = 'moderator'
+  USER = 'user'
 end
