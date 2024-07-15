@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 # Handles user authentication, including login and registration.
+
 class AuthenticationController < ApplicationController
   include JwtToken
 

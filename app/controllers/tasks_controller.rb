@@ -9,7 +9,6 @@ class TasksController < ApplicationController
   before_action :authorize_destroy, only: [:destroy]
   before_action :authorize_show, only: [:show]
   before_action :authorize_assign, only: [:assign]
-
   def index
     @tasks = if @current_user.role?(:admin) || @current_user.role?(:moderator)
                Task.page(params[:page]).per(10)

@@ -1,5 +1,7 @@
 # frozen_string_literal: true
+# ApplicationController serves as the base controller for the API
 class ApplicationController < ActionController::API
+
   include JwtToken
   before_action :authenticate_user
 
@@ -20,6 +22,7 @@ class ApplicationController < ActionController::API
 
   def authorize_admin
     return if @current_user.role?('admin')
+
     render json: { errors: ['Unauthorized. Admin access required.'] }, status: :unauthorized
   end
 

@@ -26,11 +26,11 @@ class TaskReminderWorker
   def send_reminder_email(task, user, assigned_user)
     if assigned_user && assigned_user != user
       TaskMailer.reminder_email(assigned_user, task).deliver_later
-      Rails.logger.info("TaskReminderWorker: Reminder email sent to assigned user ID=#{assigned_user.id} for task ID=#{task.id}")
+      Rails.logger.info("TaskReminderWorker: Reminder email sent, user ID=#{assigned_user.id}, task ID=#{task.id}")
     end
 
     TaskMailer.reminder_email(user, task).deliver_later
-    Rails.logger.info("TaskReminderWorker: Reminder email sent to Admin ID=#{user.id} for task ID=#{task.id}")
+    Rails.logger.info("TaskReminderWorker: Reminder email sent, Admin ID=#{user.id}, task ID=#{task.id}")
 
     task.update(last_reminder_sent_at: Time.current)
     Rails.logger.info("TaskReminderWorker: Updated last_reminder_sent_at for task ID=#{task.id}")
