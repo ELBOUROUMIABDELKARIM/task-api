@@ -53,7 +53,6 @@ gem 'bullet', group: 'development'
 
 gem 'byebug', '~> 10.0.1', require: false
 group :development do
-  gem 'brakeman', require: false
   gem 'spring'
 end
 
@@ -63,6 +62,9 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'rswag-specs'
+  gem 'bundler-audit', require: false
+  gem 'brakeman', require: false
+  gem 'rubocop', require: false
 end
 
 group :test do

@@ -22,6 +22,10 @@ jobs:
           POSTGRES_DB: project_development_test
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: recettebatch
+      redis:
+        image: redis:alpine
+        ports:
+          - "6379:6379"
     env:
       RAILS_ENV: test
       DATABASE_URL: "postgres://postgres:recettebatch@localhost:5432/project_development_test"
@@ -54,9 +58,9 @@ jobs:
         with:
           bundler-cache: true
       - name: Install bundler-audit
-        run: gem install bundler-audit
+        run: bundle exec gem install bundler-audit
       - name: Install Brakeman
-        run: gem install brakeman
+        run: bundle exec gem install brakeman
       # Add or replace any other lints here
       - name: Security audit dependencies
         run: bundle exec bundler-audit --update
