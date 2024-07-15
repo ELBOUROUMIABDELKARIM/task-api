@@ -9,5 +9,12 @@ AllCops:
     - 'lib/**/*'
     - 'vendor/**/*'
 
-NewCops: enable
 
+Layout/EmptyLineAfterMagicComment:
+  Enabled: true
+
+Style/Documentation:
+  Enabled: true
+
+Layout/EmptyLineAfterGuardClause:
+  Enabled: true
