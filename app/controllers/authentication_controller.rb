@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+# Handles user authentication, including login and registration.
 class AuthenticationController < ApplicationController
   include JwtToken
 
@@ -31,8 +33,8 @@ class AuthenticationController < ApplicationController
     token = jwt_encode(user_id: user.id, role: user.role)
     exp_time = 24.hours.from_now
     render json: {
-      token: token,
-      exp: exp_time.strftime("%m-%d-%Y %H:%M"),
+      token:,
+      exp: exp_time.strftime('%m-%d-%Y %H:%M'),
       username: user.name,
       status: :ok
     }

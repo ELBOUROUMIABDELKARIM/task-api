@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represents a task assigned to a user with optional assignment to another user.
 class Task < ApplicationRecord
   belongs_to :user
   belongs_to :assigned_user, class_name: 'User', optional: true
@@ -19,5 +22,4 @@ class Task < ApplicationRecord
   def reminder_needed?
     due_soon? && (last_reminder_sent_at.nil? || last_reminder_sent_at < 1.day.ago)
   end
-
 end

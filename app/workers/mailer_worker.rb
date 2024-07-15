@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Worker class for sending task assignment emails.
 class MailerWorker
   include Sidekiq::Worker
 

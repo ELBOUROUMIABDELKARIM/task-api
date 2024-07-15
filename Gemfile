@@ -46,7 +46,6 @@ gem 'sidekiq-cron'
 
 gem 'bullet', group: 'development'
 gem 'byebug', '~> 10.0.1', require: false
-gem 'rubocop', require: false
 
 group :development do
   gem 'spring'

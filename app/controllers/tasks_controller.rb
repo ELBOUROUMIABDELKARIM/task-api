@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# Manages tasks including creation, updates, and assignment.
 class TasksController < ApplicationController
   before_action :authenticate_user
-  before_action :find_task, only: [:show, :update, :destroy, :assign]
+  before_action :find_task, only: %i[show update destroy assign]
   before_action :authorize_create, only: [:create]
   before_action :authorize_update, only: [:update]
   before_action :authorize_destroy, only: [:destroy]
@@ -8,10 +11,10 @@ class TasksController < ApplicationController
   before_action :authorize_assign, only: [:assign]
 
   def index
-    @tasks = if @current_user.has_role?(:admin) || @current_user.has_role?(:moderator)
+    @tasks = if @current_user.role?(:admin) || @current_user.role?(:moderator)
                Task.page(params[:page]).per(10)
              else
-               Task.where("user_id = ? OR assigned_user_id = ?", @current_user.id, @current_user.id)
+               Task.where('user_id = ? OR assigned_user_id = ?', @current_user.id, @current_user.id)
                    .page(params[:page]).per(10)
              end
     render json: {
@@ -56,11 +59,11 @@ class TasksController < ApplicationController
     assigned_user = User.find_by(id: params[:assigned_user_id])
 
     if assigned_user.nil?
-      return render json: { error: "Assigned user not found" }, status: :not_found # 404
+      return render json: { error: 'Assigned user not found' }, status: :not_found
     end
 
-    unless assigned_user.has_role?(:user)
-      return render json: { error: "Task can only be assigned to users with the user role" }, status: :forbidden # 403
+    unless assigned_user.role?(:user)
+      return render json: { error: 'Task can only be assigned to users with the user role' }, status: :forbidden # 403
     end
 
     if @task.assigned_user_id == assigned_user.id
@@ -74,7 +77,6 @@ class TasksController < ApplicationController
       render json: { error: 'Unable to assign task' }, status: :unprocessable_entity # 422
     end
   end
-
 
   private
 

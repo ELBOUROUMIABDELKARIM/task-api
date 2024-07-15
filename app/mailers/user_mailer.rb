@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mailer class for sending user-related notifications.
 class UserMailer < ApplicationMailer
   default from: 'karim@task.api'
 

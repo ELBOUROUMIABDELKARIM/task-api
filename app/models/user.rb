@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Represents a user in the application with roles and permissions.
 class User < ApplicationRecord
   has_secure_password
 
@@ -8,33 +11,32 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
 
-
   def assign_to(user)
     update(assigned_user: user)
   end
 
-  def has_role?(role_name)
+  def role?(role_name)
     role == role_name.to_s
   end
 
   def can_create_task?
-    has_role?(:admin)
+    role?(:admin)
   end
 
   def can_assign_task?
-    has_role?(:moderator) || has_role?(:admin)
+    role?(:moderator) || role?(:admin)
   end
 
-  def can_update_task?(task)
-    has_role?(:admin) || has_role?(:moderator)
+  def can_update_task?(_task)
+    role?(:admin) || role?(:moderator)
   end
 
-  def can_delete_task?(task)
-    has_role?(:admin)
+  def can_delete_task?(_task)
+    role?(:admin)
   end
 
   def can_view_task?(task)
-    has_role?(:admin) || has_role?(:moderator) || (task.assigned_user == self)
+    role?(:admin) || role?(:moderator) || (task.assigned_user == self)
   end
 
   private

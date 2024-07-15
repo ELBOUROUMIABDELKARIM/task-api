@@ -1,7 +1,10 @@
+# frozen_string_literal: true
+
+# Manages user accounts including creation, viewing, and deletion by admins.
 class UsersController < ApplicationController
-  before_action :authorize_admin, only: [:create, :destroy]
-  before_action :set_user, only: [:show, :destroy]
-  #skip_before_action :authenticate_user, only: [:index]
+  before_action :authorize_admin, only: %i[create destroy]
+  before_action :set_user, only: %i[show destroy]
+  # skip_before_action :authenticate_user, only: %i[index]
 
   def index
     @users = User.page(params[:page]).per(10)
@@ -12,6 +15,7 @@ class UsersController < ApplicationController
       total_count: @users.total_count
     }, status: :ok
   end
+
   def show
     render json: @user, status: :ok
   rescue ActiveRecord::RecordNotFound
@@ -43,10 +47,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :email, :password, :role, :dateOfBirth)
+    params.require(:user).permit(:name, :email, :password, :role, :date_of_birth)
   end
 
   def authorize_admin
-    render json: { error: 'Not authorized' }, status: :forbidden unless @current_user.has_role?(:admin)
+    render json: { error: 'Not authorized' }, status: :forbidden unless @current_user.role?(:admin)
   end
 end

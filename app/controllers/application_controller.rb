@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 class ApplicationController < ActionController::API
   include JwtToken
   before_action :authenticate_user
@@ -18,8 +19,8 @@ class ApplicationController < ActionController::API
   end
 
   def authorize_admin
-    unless @current_user.has_role?('admin')
-      render json: { errors: ['Unauthorized. Admin access required.'] }, status: :unauthorized
-    end
+    return if @current_user.role?('admin')
+    render json: { errors: ['Unauthorized. Admin access required.'] }, status: :unauthorized
   end
+
 end

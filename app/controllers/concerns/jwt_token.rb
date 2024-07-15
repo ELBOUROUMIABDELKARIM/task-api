@@ -2,9 +2,10 @@
 
 require 'jwt'
 
+# This module provides methods to encode and decode JWT tokens.
 module JwtToken
   extend ::ActiveSupport::Concern
-  SECRET_KEY= Rails.application.secret_key_base.to_s
+  SECRET_KEY = Rails.application.secret_key_base.to_s
 
   def jwt_encode(payload, exp = 24.hours.from_now)
     payload[:exp] = exp.to_i
@@ -15,5 +16,4 @@ module JwtToken
     decode = JWT.decode(token, SECRET_KEY)[0]
     HashWithIndifferentAccess.new decode
   end
-
 end

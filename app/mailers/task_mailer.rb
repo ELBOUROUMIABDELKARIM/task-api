@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Mailer class for sending task-related notifications.
 class TaskMailer < ApplicationMailer
   default from: 'notifications@task.api'
 
