@@ -81,7 +81,4 @@ test:
 # for a full overview on how database connection configuration can be specified.
 #
 production:
-  <<: *default
-  database: web_api_learn_production
-  username: web_api_learn
-  password: <%= ENV["WEB_API_LEARN_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
