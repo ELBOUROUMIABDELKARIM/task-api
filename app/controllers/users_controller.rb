@@ -16,10 +16,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    if @current_user.role? :admin || @current_user.id == @user.id
+    if @current_user.role?(:admin) || @current_user.id == @user.id
       render json: @user, status: :ok
     else
-      render json: {error: 'User not found'}, status: :not_found
+      render json: { error: 'User not found' }, status: :not_found
     end
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'User not found' }, status: :not_found
