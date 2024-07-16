@@ -4,7 +4,6 @@
 
 # Manages tasks including creation, updates, and assignment.
 class TasksController < ApplicationController
-  before_action :authenticate_user
   before_action :find_task, only: %i[show update destroy assign]
   before_action :authorize_create, only: [:create]
   before_action :authorize_update, only: [:update]
@@ -77,7 +76,7 @@ class TasksController < ApplicationController
     if @current_user.role?(:admin) || @current_user.role?(:moderator)
       Task.page(params[:page]).per(10)
     else
-      Task.where('user_id = ? OR assigned_user_id = ?', @current_user.id, @current_user.id)
+      Task.where('assigned_user_id = ?', @current_user.id)
           .page(params[:page]).per(10)
     end
   end

@@ -32,7 +32,7 @@ module WebApiLearn
     config.active_job.queue_adapter = :sidekiq
     config.middleware.use ActionDispatch::Cookies
     config.middleware.use ActionDispatch::Session::CookieStore, key: '_your_app_session'
-
+    config.middleware.use Rack::Attack
     config.generators do |g|
       g.test_framework :rspec
     end

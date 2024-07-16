@@ -2,7 +2,7 @@
 
 # Manages user accounts including creation, viewing, and deletion by admins.
 class UsersController < ApplicationController
-  before_action :authorize_admin, only: %i[create destroy]
+  before_action :authorize_admin, only: %i[index create destroy]
   before_action :set_user, only: %i[show destroy]
 
   def index
@@ -16,7 +16,11 @@ class UsersController < ApplicationController
   end
 
   def show
-    render json: @user, status: :ok
+    if @current_user.role? :admin || @current_user.id == @user.id
+      render json: @user, status: :ok
+    else
+      render json: {error: 'User not found'}, status: :not_found
+    end
   rescue ActiveRecord::RecordNotFound
     render json: { error: 'User not found' }, status: :not_found
   end

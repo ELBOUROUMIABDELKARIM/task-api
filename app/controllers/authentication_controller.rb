@@ -27,7 +27,7 @@ class AuthenticationController < ApplicationController
   private
 
   def user_params
-    params.permit(:name, :email, :password, :role, :dateOfBirth)
+    params.permit(:name, :email, :password, :role, :date_of_birth)
   end
 
   def render_successful_login(user)
