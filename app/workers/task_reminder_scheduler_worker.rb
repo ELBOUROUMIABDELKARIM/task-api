@@ -6,7 +6,7 @@ class TaskReminderSchedulerWorker
 
   def perform
     tasks_due_soon = Task.where(due_date: ..1.day.from_now, completed: false)
-    #tasks_due_soon = Task.where('due_date <= ? AND completed = ?', 1.day.from_now, false)
+    # tasks_due_soon = Task.where('due_date <= ? AND completed = ?', 1.day.from_now, false)
     tasks_due_soon.find_each do |task|
       TaskReminderWorker.perform_async(task.id)
     end
