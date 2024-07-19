@@ -41,7 +41,6 @@ services:
 
   web:
     build: .
-    image: ${{ secrets.DOCKERHUB_USERNAME }}/task-ruby-api
     ports:
       - "3000:3000"
     environment:
@@ -49,12 +48,9 @@ services:
       DATABASE_URL: postgres://postgres:recettebatch@postgres:5432/project_development
       REDIS_URL: redis://redis:6379/0
     depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_healthy
-      mailhog:
-        condition: service_healthy
+      - postgres
+      - redis
+      - mailhog
 
 volumes:
   postgres_data:
