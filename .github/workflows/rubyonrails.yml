@@ -13,7 +13,6 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    needs: lint
     services:
       postgres:
         image: postgres:11-alpine

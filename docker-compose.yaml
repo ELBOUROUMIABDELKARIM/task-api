@@ -48,9 +48,12 @@ services:
       DATABASE_URL: postgres://postgres:recettebatch@postgres:5432/project_development
       REDIS_URL: redis://redis:6379/0
     depends_on:
-      - postgres
-      - redis
-      - mailhog
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailhog:
+        condition: service_healthy
 
 volumes:
   postgres_data:
