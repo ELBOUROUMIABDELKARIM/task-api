@@ -426,6 +426,8 @@ components:
           type: string
         assigned_user_id:
           type: string
+        due_date:
+          type: string
     TaskInput:
       type: object
       properties:
@@ -435,3 +437,5 @@ components:
           type: string
         completed:
           type: boolean
+        due_date:
+          type: string

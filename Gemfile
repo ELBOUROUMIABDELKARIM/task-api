@@ -46,7 +46,7 @@ gem 'rswag-ui'
 gem 'sidekiq'
 gem 'sidekiq-cron'
 
-gem 'bullet', group: 'development'
+gem 'bullet', group: [:development, :production]
 gem 'byebug', '~> 10.0.1', require: false
 
 group :development do

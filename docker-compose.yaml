@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   postgres:
     image: postgres:latest
@@ -40,6 +38,23 @@ services:
       interval: 30s
       timeout: 10s
       retries: 5
+
+  web:
+    build: .
+    image: ${{ secrets.DOCKERHUB_USERNAME }}/task-ruby-api
+    ports:
+      - "3000:3000"
+    environment:
+      RAILS_ENV: development
+      DATABASE_URL: postgres://postgres:recettebatch@postgres:5432/project_development
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      mailhog:
+        condition: service_healthy
 
 volumes:
   postgres_data:
