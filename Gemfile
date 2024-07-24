@@ -47,7 +47,7 @@ gem 'sidekiq'
 gem 'sidekiq-cron'
 
 gem 'bullet', group: [:development, :production]
-gem 'byebug', '~> 10.0.1', require: false
+gem 'byebug', '~> 11.1.3', require: false
 
 group :development do
   gem 'spring'
