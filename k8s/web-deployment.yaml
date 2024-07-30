@@ -19,7 +19,7 @@ spec:
             - containerPort: 3000
           env:
             - name: RAILS_ENV
-              value: "development"
+              value: "production"
             - name: DATABASE_URL
               value: "postgres://postgres:recettebatch@postgres:5432/project_development"
             - name: REDIS_URL
