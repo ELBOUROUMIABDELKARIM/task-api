@@ -51,7 +51,7 @@ class TasksController < ApplicationController
     return if performed?
 
     if @task.assigned_user_id == assigned_user.id
-      render_unprocessable('This task is already assigned to the specified user')
+      render_unprocessable('This task is already assigned to the specified user.')
     elsif @task.assign_to(assigned_user)
       MailerWorker.perform_async(@task.id)
       render json: @task, status: :ok
