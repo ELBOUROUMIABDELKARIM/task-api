@@ -82,7 +82,7 @@ Rails.application.configure do
   config.action_controller.raise_on_missing_callback_actions = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
-    address: 'localhost',
+    address: "mailhog", # Docker service name for Mailhog
     port: 1025
   }
 end
