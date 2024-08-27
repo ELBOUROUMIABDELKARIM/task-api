@@ -2,7 +2,15 @@
 
 # If running the rails server then create or migrate existing database
 if [ "${1}" == "./bin/rails" ] && [ "${2}" == "server" ]; then
+  # Prepare the database
   ./bin/rails db:prepare
-fi
 
-exec "${@}"
+  # Start Sidekiq in the background
+  ./bin/bundle exec sidekiq &
+
+  # Start the Rails server
+  exec "${@}"
+else
+  # If not starting the rails server, just run the provided command
+  exec "${@}"
+fi
