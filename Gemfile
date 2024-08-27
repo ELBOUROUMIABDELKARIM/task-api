@@ -40,7 +40,7 @@ gem 'jwt'
 gem 'kaminari'
 gem 'pry', require: false
 gem 'pry-rails', group: :development
-gem 'rexml', '>= 3.3.2'
+gem 'rexml', '>= 3.3.6'
 gem 'rswag-api'
 gem 'rswag-ui'
 gem 'sidekiq'
