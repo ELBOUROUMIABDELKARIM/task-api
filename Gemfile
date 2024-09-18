@@ -39,6 +39,7 @@ gem 'fugit', '>= 1.11.1'
 gem 'rack-attack'
 gem 'jwt'
 gem 'kaminari'
+gem 'newrelic_rpm'
 gem 'pry', require: false
 gem 'pry-rails', group: :development
 gem 'rexml', '>= 3.3.6'
